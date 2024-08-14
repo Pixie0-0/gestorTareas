@@ -1,5 +1,6 @@
 import { renderTasks } from "./ui";
-import { addTask } from "./task";
+import { addTask, deleteTask, updateTask } from "./task";
+
 
 document.addEventListener("DOMContentLoaded", () => {
     //Hacemos visible la lista de tareas
@@ -17,8 +18,22 @@ document.addEventListener("DOMContentLoaded", () => {
             renderTasks();
 
             //Limpiar el input
-            document.getElementById("task.input").value = "";
+            document.getElementById("task-input").value = "";
         } 
     });
 
+// Agregar el evento para los botones
+document.getElementById("task-list").addEventListener("click", (e) => {
+    if(e.target.classList.contains("delete")) {
+        const taskId = e.target.parentElement.getAttribute("data-id");
+        deleteTask(taskId);
+        renderTasks();
+    }
+
+    if(e.target.classList.contains("toggle")) {
+        const taskId = e.target.parentElement.getAttribute("data-id");
+        updateTask(taskId);
+        renderTasks();
+    }
+    });
 });
